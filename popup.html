@@ -1,0 +1,206 @@
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <title>Days Until Target</title>
+        <style>
+            body {
+                font-family: 'Courier New', 'Courier', monospace;
+                width: 200px;
+                height: 350px;
+                margin: 0;
+                padding: 15px;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                background: linear-gradient(135deg, #2d3e2d, #3d4f3d);
+                color: #c5d1c5;
+            }
+            label, input, button {display: block; margin-bottom: 10px; width: 100%}
+            button {
+                width: 70px; 
+                padding: 8px; 
+                margin: 0 auto;
+                background: #4a5d4a;
+                color: #f0f5f0;
+                border: 2px solid #6b7d6b;
+                border-radius: 3px;
+                font-family: 'Courier New', 'Courier', monospace;
+                font-weight: bold;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            button:hover {
+                background: #5d7a5d;
+                border-color: #7d9a7d;
+            }
+            label {
+                font-size: 11px;
+                color: #b8c4b8;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            input {
+                background: #3d4f3d;
+                border: 2px solid #5d6f5d;
+                color: #f0f5f0;
+                padding: 6px;
+                border-radius: 3px;
+                font-family: 'Courier New', 'Courier', monospace;
+            }
+            input:focus {
+                outline: none;
+                border-color: #7d9a7d;
+                background: #4a5d4a;
+            }
+            #daysDisplay {
+                font-size: 42px; 
+                font-weight: 900; 
+                color: #8fbc8f; 
+                margin: 0 0 0 0;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+                font-family: 'Courier New', 'Courier', monospace;
+            }
+            h1 {
+                font-family: 'Courier New', 'Courier', monospace;
+                font-size: 16px;
+                color: #a8b5a8;
+                text-transform: uppercase;
+                font-weight: bold;
+                margin: 0 0 20px 5px;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            }
+            .toggle-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 10px 0;
+            }
+            .toggle-text {
+                font-size: 11px;
+                color: #b8c4b8;
+                text-transform: uppercase;
+                margin-right: 10px;
+                font-family: 'Courier New', 'Courier', monospace;
+            }
+            .toggle-switch {
+                position: relative;
+                width: 40px;
+                height: 20px;
+                background: #3d4f3d;
+                border-radius: 15px;
+                border: 2px solid #5d6f5d;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            .toggle-switch.active {
+                background: #4a5d4a;
+                border-color: #7d9a7d;
+            }
+            .toggle-slider {
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 14px;
+                height: 14px;
+                background: #5d6f5d;
+                border-radius: 50%;
+                transition: all 0.3s;
+            }
+            .toggle-switch.active .toggle-slider {
+                transform: translateX(18px);
+                background: #8fbc8f;
+            }
+            .frequency-container {
+                margin: 10px 0;
+                width: 100%;
+            }
+            .frequency-slider {
+                width: 100%;
+                height: 5px;
+                background: #3d4f3d;
+                outline: none;
+                border-radius: 5px;
+                margin: 5px 0;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+            .frequency-slider::-webkit-slider-track {
+                background: #3d4f3d;
+                height: 5px;
+                border-radius: 5px;
+                border: 1px solid #5d6f5d;
+            }
+            .frequency-slider::-moz-range-track {
+                background: #3d4f3d;
+                height: 5px;
+                border-radius: 5px;
+                border: 1px solid #5d6f5d;
+            }
+            .frequency-slider::-webkit-slider-thumb {
+                appearance: none;
+                width: 18px;
+                height: 18px;
+                background: #8fbc8f;
+                border: 2px solid #5d6f5d;
+                border-radius: 50%;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1);
+                transition: all 0.2s;
+            }
+            .frequency-slider::-moz-range-thumb {
+                width: 18px;
+                height: 18px;
+                background: #8fbc8f;
+                border: 2px solid #5d6f5d;
+                border-radius: 50%;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1);
+                transition: all 0.2s;
+            }
+            .frequency-slider::-webkit-slider-thumb:hover {
+                background: #7d9a7d;
+                border-color: #6b7d6b;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,255,0.2);
+                transform: scale(1.1);
+            }
+            .frequency-slider::-moz-range-thumb:hover {
+                background: #7d9a7d;
+                border-color: #6b7d6b;
+                box-shadow: 0 3px 6px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,255,0.2);
+                transform: scale(1.1);
+            }
+            .frequency-slider:focus {
+                outline: none;
+                box-shadow: 0 0 0 2px #7d9a7d;
+            }
+            .frequency-slider:focus::-webkit-slider-thumb {
+                border-color: #7d9a7d;
+                box-shadow: 0 0 0 2px #8fbc8f, 0 2px 4px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1);
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>HIT YOUR GOALS</h1>
+        <div id="daysDisplay">--</div>
+         <h1>to go !!</h1>
+        <label for="targetDate">Choose your target date:</label>
+        <input type="date" id="targetDate">
+        <button id="saveButton">Save</button>
+        <div class="toggle-container">
+            <span class="toggle-text">Goggins Style</span>
+            <div class="toggle-switch" id="toggleSwitch">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+        <div class="frequency-container">
+            <label for="frequencySlider">Daily Frequency: <span id="frequencyValue">1</span></label>
+            <input type="range" id="frequencySlider" min="1" max="24" value="1" class="frequency-slider">
+        </div>
+        <script src="popup.js"></script>
+    </body>
+</html>
